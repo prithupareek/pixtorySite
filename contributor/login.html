@@ -1,0 +1,136 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <title>Pixtory Web Portal</title>
+    <link rel="icon" href="assets/img/favicon.ico">
+    <meta http-equiv="content-type" content="text/html; charset=utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link href="style.css" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css?family=Montserrat:400,700" rel="stylesheet" type="text/css">
+    <link href='https://fonts.googleapis.com/css?family=Droid+Serif:400,700,400italic,700italic' rel='stylesheet' type='text/css'>
+    <link href='https://fonts.googleapis.com/css?family=Roboto:400,500italic,500,400italic,300italic,300' rel='stylesheet' type='text/css'>
+    <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+    <style type="text/css">
+    button {
+        outline: none
+    }
+    </style>
+</head>
+
+<body>
+    <script>
+    // initialize and setup facebook js sdk
+    window.fbAsyncInit = function() {
+        FB.init({
+            appId: '1207785742565519',
+            xfbml: true,
+            version: 'v2.6'
+        });
+        FB.getLoginStatus(function(response) {
+            if (response.status === 'connected') {
+                window.open("home.html", "_self")
+                    ///document.getElementById('status').innerHTML = 'We are connected.';
+                document.getElementById('login').style.visibility = 'hidden';
+            } else if (response.status === 'not_authorized') {
+                ///document.getElementById('status').innerHTML = 'We are not logged in.'
+            } else {
+                ///document.getElementById('status').innerHTML = 'You are not logged into Facebook.';
+            }
+        });
+    };
+    (function(d, s, id) {
+        var js, fjs = d.getElementsByTagName(s)[0];
+        if (d.getElementById(id)) {
+            return;
+        }
+        js = d.createElement(s);
+        js.id = id;
+        js.src = "//connect.facebook.net/en_US/sdk.js";
+        fjs.parentNode.insertBefore(js, fjs);
+    }(document, 'script', 'facebook-jssdk'));
+
+    // login with facebook with extra permissions
+    function login() {
+        FB.login(function(response) {
+            if (response.status === 'connected') {
+                FB.api('/me', 'GET', {
+                    "fields": "picture{url},email,name,id"
+                }, function(response) {
+                    fbId = response.id; ///works
+                    ///console.log(fbId);
+                    GetPersonInfo();
+
+                });
+                //document.getElementById('status').innerHTML = 'We are connected.';
+            } else if (response.status === 'not_authorized') {
+                //document.getElementById('status').innerHTML = 'We are not logged in.'
+            } else {
+                //document.getElementById('status').innerHTML = 'You are not logged into Facebook.';
+            }
+        }, {
+            scope: 'email'
+        });
+    }
+
+    function getParameterByName(name, url) {
+        var uid;
+        if (!url) url = window.location.href;
+        name = name.replace(/[\[\]]/g, "\\$&");
+        var regex = new RegExp("[?&]" + name + "(=([^&#]*)|&|#|$)"),
+            results = regex.exec(url);
+        if (!results) return null;
+        if (!results[2]) return '';
+        uid = decodeURIComponent(results[2].replace(/\+/g, " "));
+        if (uid) {
+            window.localStorage.setItem("uid", uid);
+        }
+    }
+
+    function GetPersonInfo() {
+
+
+        ///console.log(fbId);
+
+        var JSON_2 = {
+            "fbId": fbId,
+            "userId": window.localStorage.getItem("uid")
+        };
+        var data_2 = JSON.stringify(JSON_2);
+        ///console.log(data_2);
+
+        var xhttp_2 = new XMLHttpRequest();
+
+        xhttp_2.open("POST", "http://pixtory-prod-elb-1118450371.ap-south-1.elb.amazonaws.com:80/linkFbIdUserId", true);
+        xhttp_2.setRequestHeader("content-type", "application/json");
+        xhttp_2.send(data_2);
+
+        xhttp_2.addEventListener("readystatechange", function() {
+            if (xhttp_2.readyState === 4) {
+                ///console.log(xhttp_2.responseText);
+                parsed_json2 = JSON.parse(xhttp_2.responseText);
+                window.localStorage.setItem("item", parsed_json2);
+                document.getElementById('login').style.visibility = 'hidden';
+                window.open("home.html", "_self")
+
+            };
+        });
+    };
+
+    getParameterByName("uid");
+    </script>
+    <div id="status"></div>
+    <div class="strip" align="center"></div>
+    <div>
+        <center>
+            <img src="assets/img/logo.png" alt="Pixtory" style="width:360px;padding-top:8%;">
+        </center>
+        <hr class="login">
+        <center>
+            <button onclick="login()" id="login" style="cursor: pointer;border:none;background-color:#FFF;">
+                <img src="assets/img/fb_login.png" alt="Login with Facebook" style="width:75%;">
+            </button>
+        </center>
+</body>
+
+</html>

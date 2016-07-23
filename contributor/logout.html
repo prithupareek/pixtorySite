@@ -1,0 +1,103 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+
+<title>Pixtory Web Portal</title>
+<link rel="icon" href="assets/img/favicon.ico">
+
+<meta http-equiv="content-type" content="text/html; charset=utf-8" >
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<link href="style.css" rel="stylesheet">
+
+    <link href="https://fonts.googleapis.com/css?family=Montserrat:400,700" rel="stylesheet" type="text/css">
+    <link href='https://fonts.googleapis.com/css?family=yushan+Script' rel='stylesheet' type='text/css'>
+    <link href='https://fonts.googleapis.com/css?family=Droid+Serif:400,700,400italic,700italic' rel='stylesheet' type='text/css'>
+    <link href='https://fonts.googleapis.com/css?family=Roboto:400,500italic,500,400italic,300italic,300' rel='stylesheet' type='text/css'>
+    <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+
+</head>
+
+<body id="page-top" class="index">
+
+<!--Facebook Java SDK-->
+  <script>
+    // initialize and setup facebook js sdk
+    window.fbAsyncInit = function() {
+        FB.init({
+          appId      : '1212526265445331',
+          xfbml      : true,
+          version    : 'v2.6'
+        });
+
+    (function(d, s, id){
+        var js, fjs = d.getElementsByTagName(s)[0];
+        if (d.getElementById(id)) {return;}
+        js = d.createElement(s); js.id = id;
+        js.src = "//connect.facebook.net/en_US/sdk.js";
+        fjs.parentNode.insertBefore(js, fjs);
+    }(document, 'script', 'facebook-jssdk'));
+
+        FB.getLoginStatus(function(response) {
+          if (response.status === 'connected') {
+            ///document.getElementById('status').innerHTML = 'We are connected.';
+            document.getElementById('login').style.visibility = 'hidden';
+          } else if (response.status === 'not_authorized') {
+            ///document.getElementById('status').innerHTML = 'We are not logged in.'
+            window.open("login.html","_self")
+          } else {
+            ///document.getElementById('status').innerHTML = 'You are not logged into Facebook.';
+            window.open("login.html","_self")
+          }
+        });
+    };
+
+    function logout() {
+      FB.logout(function(response) {
+        if (response.status === 'connected') {
+          logout();
+        } else if (response.status === 'not_authorized') {
+          window.open("login.html","_self")
+        } else {
+          window.open("login.html","_self")
+        }
+      })
+    }
+
+  </script>
+
+	<div class="strip" align="center"></div>
+	<div class="header">
+		<center>
+			<ul>
+  				<li style="float:left;padding-top:1%;"><a href="home.html"><img src="assets/img/logo_grey.png" style="width:120px;height:205/6px;"></a></li>
+  				<li style="float:right;">
+  					<a href="logout.html">
+  						<div class="image-cropper">
+    						<img src="http://www.yumood.com/img/team/prithu.jpg" style="height:60px;width:60px;" class="rounded" />
+						</div>
+  					</a>
+  				</li>
+  				<li style="float:right;padding-top:2%;" class="dropdown">
+  					<a class="dropbtn"><i class="material-icons">notifications_none</i></a>
+  					<div class="dropdown-content">
+  						<a href="#notifications">Notification</a>
+  					</div>
+  				</li>
+  				<li style="float:right;padding-top:2%;" class="dropdown">
+  					<a href="feedback.html"><i class="material-icons">more_horiz</i></a>
+  				</li>
+			</ul>
+		</center>
+	</div>
+
+	<div>
+      <h1 style="margin-left:15%;font-family: 'Roboto', sans-serif;font-weight: 500;">You have been logged out.</h1>
+    <center>
+      <hr style="margin-left:14%;margin-right:14%;">
+    </center>
+  </div>
+
+</body>
+</html>

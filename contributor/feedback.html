@@ -1,0 +1,151 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+
+<title>Pixtory Web Portal</title>
+<link rel="icon" href="assets/img/favicon.ico">
+
+<meta http-equiv="content-type" content="text/html; charset=utf-8" >
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <link href="style.css" rel="stylesheet">
+
+    <link href="https://fonts.googleapis.com/css?family=Montserrat:400,700" rel="stylesheet" type="text/css">
+    <link href='https://fonts.googleapis.com/css?family=yushan+Script' rel='stylesheet' type='text/css'>
+    <link href='https://fonts.googleapis.com/css?family=Droid+Serif:400,700,400italic,700italic' rel='stylesheet' type='text/css'>
+    <link href='https://fonts.googleapis.com/css?family=Roboto:400,500italic,500,400italic,300italic,300' rel='stylesheet' type='text/css'>
+    <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+
+</head>
+
+<body id="page-top" class="index">
+
+<!--Facebook Java SDK-->
+  <script>
+    // initialize and setup facebook js sdk
+    window.fbAsyncInit = function() {
+        FB.init({
+          appId      : '1207785742565519',
+          xfbml      : true,
+          version    : 'v2.6'
+        });
+        FB.getLoginStatus(function(response) {
+          if (response.status === 'connected') {
+            ///document.getElementById('status').innerHTML = 'We are connected.';
+            //document.getElementById('login').style.visibility = 'hidden';
+          } else if (response.status === 'not_authorized') {
+            ///document.getElementById('status').innerHTML = 'We are not logged in.'
+            window.open("login.html","_self")
+          } else {
+            ///document.getElementById('status').innerHTML = 'You are not logged into Facebook.';
+            window.open("login.html","_self")
+          }
+        FB.api('/me', 'GET', {"fields":"picture{url},email,first_name,last_name,id"}, function(response) {
+            document.getElementById('myImage').src = response.picture.data.url;
+          });
+    })
+        };
+    (function(d, s, id){
+        var js, fjs = d.getElementsByTagName(s)[0];
+        if (d.getElementById(id)) {return;}
+        js = d.createElement(s); js.id = id;
+        js.src = "//connect.facebook.net/en_US/sdk.js";
+        fjs.parentNode.insertBefore(js, fjs);
+    }(document, 'script', 'facebook-jssdk'));
+
+  </script>
+
+
+  <div class="strip" align="center"></div>
+  <div class="header">
+    <center>
+      <ul>
+          <li style="float:left;padding-top:1%;"><a href="home.html"><img src="assets/img/logo_grey.png" style="width:120px;height:205/6px;"></a></li>
+          <li style="float:right;">
+            <a>
+              <div class="image-cropper">
+                <img id="myImage" src="assets/img/profile.jpeg" style="height:60px;width:60px;">
+            </div>
+            </a>
+          </li>
+          <li style="float:right;padding-top:2%;" class="dropdown">
+            <a class="dropbtn"><i class="material-icons">notifications_none</i></a>
+            <div class="dropdown-content">
+              <a href="#notifications">Notification</a>
+            </div>
+          </li>
+          <li style="float:right;padding-top:2%;" class="dropdown">
+            <a href="feedback.html"><i class="material-icons">more_horiz</i></a>
+          </li>
+      </ul>
+    </center>
+  </div>
+  
+  <div>
+      <h1 style="margin-left:15%;font-family: 'Roboto', sans-serif;font-weight: 500;">Feedback</h1>
+    <center>
+      <hr style="margin-left:14%;margin-right:14%;">
+    </center>
+  </div>
+
+  <div style="padding-top:2%;">
+    <center>
+    <form name="htmlform" method="post" action="html_form_send.php">
+    <table width="450px">
+      <tr>
+        <td valign="top">
+          <label for="first_name" style="font-family: 'Roboto', sans-serif;font-weight: 300;">First Name *</label>
+        </td>
+      </tr>
+      <tr>
+        <td valign="top">
+         <input  type="text" name="first_name" maxlength="50" size="100" style="outline:none;padding:1%;border: none;border-bottom: 1px solid #95989A;font-size:14px;font-color:#FFF;">
+       </td>
+      </tr>
+ 
+      <tr>
+        <td valign="top"">
+          <label for="last_name" style="font-family: 'Roboto', sans-serif;font-weight: 300;">Last Name *</label>
+        </td>
+      </tr>
+      <tr>
+        <td valign="top">
+          <input type="text" name="last_name" maxlength="50" size="100" style="outline:none;padding:1%;border: none;border-bottom: 1px solid #95989A;font-size:14px;font-color:#FFF">
+       </td>
+     </tr>
+
+     <tr>
+        <td valign="top">
+          <label for="email" style="font-family: 'Roboto', sans-serif;font-weight: 300;">Email Address *</label>
+       </td>
+      </tr>
+      <tr>
+       <td valign="top">
+         <input  type="text" name="email" maxlength="80" size="100" style="outline:none;padding:1%;border: none;border-bottom: 1px solid #95989A;font-size:14px;font-color:#FFF">
+       </td>
+      </tr>
+
+      <tr>
+        <td valign="top">
+          <label for="comments" style="font-family: 'Roboto', sans-serif;font-weight: 300;">Comments *</label>
+        </td>
+      </tr>
+      <tr>
+        <td valign="top">
+          <textarea  name="comments" maxlength="1000" cols="97" rows="6" style="outline:none;padding:1%;border: none;border-bottom: 1px solid #95989A;font-size:14px;font-color:#FFF"></textarea>
+        </td>
+        </tr>
+
+      <tr>
+        <td colspan="2" style="text-align:center;background-color:#31AEF5;height:50px;">
+          <input type="submit" value="Submit" style="border:none;background-color:#31AEF5;font-color:white;font-size:2em;color:white;">
+        </td>
+      </tr>
+    </table>
+    </form>
+    </center>
+  </div>
+
+</body>
+</html>

@@ -1,0 +1,543 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <!-- Html Page Specific -->
+    <meta charset="utf-8">
+    <title>Pixtory - Every Picture has a Story</title>
+    <meta name=description content="Discover the stories behind pictures through Pixtory. Discoveries that leave you in reflection or put a smile on your face. From everyday experiences and emotions to once-in-a-lifetime moments and inspirations. Bridging aesthetics and emotions. You’ve seen images before - but what does it mean to feel them?">
+    <meta name=keywords content="Pixtory, Story, Picture, Android, App, Mobile, Discover, Culture, Curiosity, Visual, Storytelling, Story, PictureStory, Picture App, Android, PictureApp, StoryBehindAPicture, Pixtory, Wallpaper">
+    <!-- Mobile Specific -->
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1.0, user-scalable=no">
+    <!--[if lt IE 9]>
+    <script type="text/javascript" src="scripts/html5shiv.js"></script>
+<![endif]-->
+    <!-- CSS -->
+    <link rel="stylesheet" href="css/bootstrap.min.css" />
+    <link rel="stylesheet" href="css/animate.css" />
+    <link rel="stylesheet" href="css/simple-line-icons.css" />
+    <link rel="stylesheet" href="css/icomoon-soc-icons.css" />
+    <link rel="stylesheet" href="css/magnific-popup.css" />
+    <link rel="stylesheet" href="css/style.css" />
+    <!-- Favicons -->
+    <link rel="icon" href="images/favicon.ico">
+    <link rel="apple-touch-icon" href="images/apple-touch-icon.png">
+    <link rel="apple-touch-icon" sizes="72x72" href="images/apple-touch-icon-72x72.png">
+    <link rel="apple-touch-icon" sizes="114x114" href="images/apple-touch-icon-114x114.png">
+</head>
+
+<body data-spy="scroll" data-target=".navMenuCollapse">
+    <script src="http://ajax.googleapis.com/ajax/libs/jquery/1.9.1/jquery.min.js"></script>
+    <script>
+    $(document).ready(function() {
+        $('#screenshot_2').hide();
+        $('#screenshot_4').hide();
+        $('#screenshot_6').hide();
+        $('#screenshot_8').hide();
+        $('#screenshot_1').click(function() {
+            $('#screenshot_1').hide();
+            $('#screenshot_2').show();
+        });
+        $('#screenshot_2').click(function() {
+            $('#screenshot_2').hide();
+            $('#screenshot_1').show();
+        });
+        $('#screenshot_3').click(function() {
+            $('#screenshot_3').hide();
+            $('#screenshot_4').show();
+        });
+        $('#screenshot_4').click(function() {
+            $('#screenshot_4').hide();
+            $('#screenshot_3').show();
+        });
+        $('#screenshot_5').click(function() {
+            $('#screenshot_5').hide();
+            $('#screenshot_6').show();
+        });
+        $('#screenshot_6').click(function() {
+            $('#screenshot_6').hide();
+            $('#screenshot_5').show();
+        });
+        $('#screenshot_7').click(function() {
+            $('#screenshot_7').hide();
+            $('#screenshot_8').show();
+        });
+        $('#screenshot_8').click(function() {
+            $('#screenshot_8').hide();
+            $('#screenshot_7').show();
+        });
+    });
+    </script>
+    <!-- PRELOADER -->
+    <div id="preloader">
+        <div class="battery inner">
+            <div class="load-line"></div>
+        </div>
+    </div>
+    <div id="wrap">
+        <!-- NAVIGATION BEGIN -->
+        <nav class="navbar navbar-fixed-top navbar-slide">
+            <div class="container_fluid">
+                <a class="navbar-brand goto" href="index.html#wrap"> <img src="./images/logo_nav@2x.png" alt="Pixtory" height="25" /> </a>
+                <a class="contact-btn icon-envelope" href="mailto:contact@pixtory.in"></a>
+                <button class="navbar-toggle menu-collapse-btn collapsed" data-toggle="collapse" data-target=".navMenuCollapse"> <span class="icon-bar"></span> <span class="icon-bar"></span> <span class="icon-bar"></span> </button>
+                <div class="collapse navbar-collapse navMenuCollapse">
+                    <ul class="nav">
+                        <li><a href="#benefits2">Our Story</a></li>
+                        <li><a href="#screenshots">Pixtories</a></li>
+                        <li><a href="#social">Become a Contributor</a></li>
+                        <li><a href="./contributor/login.html">Contributor Tool</a></li>
+                    </ul>
+                </div>
+            </div>
+        </nav>
+        <!-- NAVIGAION END -->
+        <!-- INTRO BEGIN -->
+        <header id="full-intro" class="intro-block bg-color-main">
+            <div class="ray ray-vertical y-100 x-50 ray-rotate-135 laser-blink hidden-sm hidden-xs"></div>
+            <div class="ray ray-horizontal y-25 x-0 ray-rotate-45 laser-blink hidden-sm hidden-xs"></div>
+            <div class="container">
+                <div class="row">
+                    <div class="col-md-8 col-sm-12">
+                        <img class="logo" src="./images/logo@2x.png" alt="Your Logo" height="70" />
+                        <h1 class="slogan">Every <b>Picture</b> <br>has a <b>Story</b></h1>
+                        <a target="_blank" href="https://n7e3g.app.goo.gl/Tn65">
+                            <img src="./images/play.png" height="50px">
+                        </a>
+                    </div>
+                    <div class="col-md-4 hidden-sm hidden-xs">
+                        <img class="intro-screen wow bounceInUp" data-wow-delay="0.5s" src="images/intro_screen.png" width="400" alt="" />
+                    </div>
+                </div>
+            </div>
+            <div class="block-bg" data-stellar-ratio="0.4"></div>
+        </header>
+        <!-- INTRO END -->
+        <!-- FEATURES BEGIN 
+    <section id="features" class="img-block-3col">
+        <div class="container">
+            <div class="title">
+                <h2>Brilliant Features</h2>
+                <p>Here are several causes that make our template worth paying attention to</p>
+            </div>
+            <div class="row">
+                <div class="col-sm-4">
+                    <ul class="item-list-right item-list-big">
+                        <li class="wow fadeInLeft">
+                            <i class="icon icon-screen-desktop"></i>
+                            <h3>Responsive design</h3>
+                            <p>Your project looks great on any device. Content can be easily read and a user understands freely what you wanted to say him or her.</p>
+                        </li>
+                        <li class="wow fadeInLeft">
+                            <i class="icon icon-drop"></i>
+                            <h3>Color schemes</h3>
+                            <p>The set of ready made CSS files with different color schemes will help you in quick landing’s adaptation according to your benchmark style.</p>
+                        </li>
+                        <li class="wow fadeInLeft">
+                            <i class="icon icon-doc"></i>
+                            <h3>PSD Is Included </h3>
+                            <p>The graphic source file in PSD format is included in the archive.</p>
+                        </li>
+                    </ul>
+                </div>
+                <div class="col-sm-4 col-sm-push-4">
+                    <ul class="item-list-left item-list-big">
+                        <li class="wow fadeInRight">
+                            <i class="icon icon-diamond"></i>
+                            <h3>Pure &amp; Simple</h3>
+                            <p>No fluff. Nothing should lead the visitor away from the main essence of website. There must be just important information.</p>
+                        </li>
+                        <li class="wow fadeInRight">
+                            <i class="icon icon-layers"></i>
+                            <h3>Documentation</h3>
+                            <p>The detailed documentation will help you in adjusting the project with little effort according to your requirements.</p>
+                        </li>
+                        <li class="wow fadeInRight">
+                            <i class="icon icon-basket-loaded"></i>
+                            <h3>Multiplatform</h3>
+                            <p>The page is adapted to the most of the popular platform in segment.</p>
+                        </li>
+                    </ul>
+                </div>
+                <div class="col-sm-4 col-sm-pull-4">
+                    <div class="animation-box wow bounceIn">
+                        <img class="highlight-left wow" src="images/light.png" height="192" width="48" alt="" />
+                        <img class="highlight-right wow" src="images/light.png" height="192" width="48" alt="" />
+                        <img class="screen" src="images/features_screen.png" alt="" height="581" width="300" />
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+    FEATURES END -->
+        <!-- FEATURES BEGIN 
+        <section id="innovations" class="bg-color2">
+            <div class="container">
+                <div class="title">
+                    <h2>Touch the Innovations</h2>
+                    <p>In our work we try to use only the most modern, convenient and interesting solutions.
+                        <br>We want the template you downloaded look unique and new for such a long time as it is possible. </p>
+                </div>
+                <img class="screen wow bounceInUp" src="images/innovation_screen.png" height="387" width="800" alt="" />
+            </div>
+            <div id="ray1" class="ray ray-horizontal"></div>
+            <div id="ray2" class="ray ray-horizontal"></div>
+            <div id="ray3" class="ray ray-horizontal"></div>
+            <div id="ray4" class="ray ray-horizontal"></div>
+        </section>
+        FEATURES END -->
+        <!-- BENEFITS1 BEGIN 
+        <section id="benefits1" class="img-block-2col">
+            <div class="container">
+                <div class="row">
+                    <div class="col-sm-6">
+                        <div class="title">
+                            <h2>OUR Benefits</h2>
+                        </div>
+                        <ul class="item-list-left">
+                            <li>
+                                <i class="icon icon-picture color"></i>
+                                <h4 class="color">6 Types of Intro</h4>
+                                <p>Today Intro is a very important element of any project. It can be named even a face of the project.</p>
+                            </li>
+                            <li>
+                                <i class="icon icon-equalizer color"></i>
+                                <h4 class="color">Stunning flexibility</h4>
+                                <p>The given template is armed with the number of settings, so you can easily adapt it according to you requirements.</p>
+                            </li>
+                            <li>
+                                <i class="icon icon-bar-chart color"></i>
+                                <h4 class="color">Step on the New Level</h4>
+                                <p>Innovative solutions and simple mathematically calculated design make it actual for a long time.</p>
+                            </li>
+                        </ul>
+                    </div>
+                    <div class="col-md-5 col-md-offset-1 col-sm-6">
+                        <div class="screen-couple-right wow fadeInRightBig">
+                            <div class="flare">
+                                <img class="base wow" src="images/flare_base.png" alt="" />
+                                <img class="shapes wow" src="images/flare_shapes.png" alt="" />
+                            </div>
+                            <img class="screen above" src="images/screen_couple_above.png" alt="" height="484" width="250" />
+                            <img class="screen beyond wow fadeInRight" data-wow-delay="0.5s" src="images/screen_couple_beyond.png" alt="" height="407" width="210" />
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+        BENEFITS1 END -->
+        <!-- BENEFITS2 BEGIN -->
+        <section id="benefits2" class="img-block-2col bg-color2">
+            <div class="container">
+                <div class="row">
+                    <div class="col-sm-6 col-sm-push-6">
+                        <div class="title">
+                            <h2 style="font-size:30px;">You’ve seen images before - but what does it mean to <i> feel </i>them?</h2>
+                        </div>
+                        <p>
+                            After a three hour climb, you reach the summit as the glow of the rising sun splashes across your face. The jaw-dropping vista brings you to your knees. Humbled and out of breath, you finally capture the photograph you’ve wanted to for years. But there is more to this than just a great view. You put blood, sweat, and tears into it. It isn’t just a photograph - it’s a journey.
+                        </p>
+                        <p>
+                            Discover the stories behind pictures through Pixtory. Discoveries that leave you in reflection or put a smile on your face. From everyday experiences and emotions to once-in-a-lifetime moments and inspirations. Bridging aesthetics and emotions. You’ve seen images before - but what does it mean to <i> feel </i>them?
+                        </p>
+                        <p>
+                            With Pixtory, live life through, quite literally, another lens.
+                        </p>
+                        <p style="font-size:20px;">
+                            <b><i>Pixtory</i> = Picture</b> + <i>Story</i>
+                        </p>
+                    </div>
+                    <div class="col-sm-6 col-sm-pull-6">
+                        <div class="screen-couple-left wow fadeInLeftBig">
+                            <div class="fog fog-top wow"></div>
+                            <div class="fog fog-bottom wow"></div>
+                            <img class="screen above" src="images/screen_couple_above_v2" alt="" height="484" width="" />
+                            <img class="screen beyond wow fadeInLeft" data-wow-delay="0.5s" src="images/screen_couple_beyond_v2" alt="" height="407" width="" />
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+        <!-- BENEFITS2 END -->
+        <!-- VIDEO BEGIN 
+        <section id="video">
+            <div class="container">
+                <div class="title">
+                    <h2>Iframe Video</h2>
+                    <p>In our work we try to use only the most modern, convenient and interesting solutions.</p>
+                </div>
+                <div class="video-container">
+                    
+                </div>
+            </div>
+        </section>
+        VIDEO END -->
+        <!-- SCREENSHOTS BEGIN -->
+        <section id="screenshots" class="bg-color2">
+            <div class="container-fluid wow fadeIn">
+                <h2>Pixtories</h2>
+                <p>Click to see the story.</p>
+                <div id="screenshots-slider" class="owl-carousel">
+                    <div>
+                        <img src="images/screenshots/1.jpg" alt="screen1" width="250" id="screenshot_1" style="cursor:pointer" />
+                        <img src="images/screenshots/2.jpg" alt="screen1" width="250" id="screenshot_2" style="cursor:pointer" />
+                    </div>
+                    <div>
+                        <img src="images/screenshots/3.png" alt="screen1" width="250" id="screenshot_3" style="cursor:pointer" />
+                        <img src="images/screenshots/4.jpg" alt="screen1" width="250" id="screenshot_4" style="cursor:pointer" />
+                    </div>
+                    <div>
+                        <img src="images/screenshots/5.jpg" alt="screen1" width="250" id="screenshot_5" style="cursor:pointer" />
+                        <img src="images/screenshots/6.jpg" alt="screen1" width="250" id="screenshot_6" style="cursor:pointer" />
+                    </div>
+                    <div>
+                        <img src="images/screenshots/7.jpg" alt="screen1" width="250" id="screenshot_7" style="cursor:pointer" />
+                        <img src="images/screenshots/8.jpg" alt="screen1" width="250" id="screenshot_8" style="cursor:pointer" />
+                    </div>
+                </div>
+            </div>
+        </section>
+        <!-- SCREENSHOTS END -->
+        <!-- FACTS BEGIN 
+        <section id="facts">
+            <div class="container">
+                <ul class="facts-list">
+                    <li class="wow bounceIn">
+                        <i class="icon icon-cloud-download"></i>
+                        <h3 class="wow">284</h3>
+                        <h4>Downloads</h4>
+                    </li>
+                    <li class="wow bounceIn" data-wow-delay="0.4s">
+                        <i class="icon icon-star"></i>
+                        <h3 class="wow">135</h3>
+                        <h4>Top Rates</h4>
+                    </li>
+                    <li class="wow bounceIn" data-wow-delay="0.8s">
+                        <i class="icon icon-like"></i>
+                        <h3 class="wow">77</h3>
+                        <h4>Likes</h4>
+                    </li>
+                    <li class="wow bounceIn" data-wow-delay="1.2s">
+                        <i class="icon icon-clock"></i>
+                        <h3 class="wow">741</h3>
+                        <h4>Hours Safe</h4>
+                    </li>
+                </ul>
+            </div>
+        </section>
+        FACTS END -->
+        <!-- PRICING TABLE BEGIN 
+        <section id="pricing-table" class="bg-color-grad">
+            <div class="container">
+                <div class="title">
+                    <h2>Price</h2>
+                    <p>We want the template you downloaded look unique and new for such a long time as it is possible. </p>
+                    <ul class="pricing-table">
+                        <li class="wow flipInY">
+                            <h3>Standard</h3>
+                            <span> $0.99 <small>per month</small> </span>
+                            <ul class="benefits-list">
+                                <li>Responsive</li>
+                                <li>Documentation</li>
+                                <li class="not">Multiplatform</li>
+                                <li class="not">Video background</li>
+                                <li class="not">Support</li>
+                            </ul>
+                            <a href="#" class="buy"> <i class="icon icon-basket"></i></a>
+                        </li>
+                        <li class="silver wow flipInY" data-wow-delay="0.2s">
+                            <h3>Sliver</h3>
+                            <span> $3.99 <small>per month</small> </span>
+                            <ul class="benefits-list">
+                                <li>Responsive</li>
+                                <li>Documentation</li>
+                                <li>Multiplatform</li>
+                                <li class="not">Video background</li>
+                                <li class="not">Support</li>
+                            </ul>
+                            <a href="#" class="buy"> <i class="icon icon-basket"></i></a>
+                        </li>
+                        <li class="gold wow flipInY" data-wow-delay="0.4s">
+                            <div class="stamp"><i class="icon icon-trophy"></i>Best choice</div>
+                            <h3>Gold</h3>
+                            <span> $8.99 <small>per month</small> </span>
+                            <ul class="benefits-list">
+                                <li>Responsive</li>
+                                <li>Documentation</li>
+                                <li>Multiplatform</li>
+                                <li>Video background</li>
+                                <li class="not">Support</li>
+                            </ul>
+                            <a href="#" class="buy"> <i class="icon icon-basket"></i></a>
+                        </li>
+                        <li class="platinum wow flipInY" data-wow-delay="0.6s">
+                            <h3>Platinum</h3>
+                            <span> $12.99 <small>per month</small> </span>
+                            <ul class="benefits-list">
+                                <li>Responsive</li>
+                                <li>Documentation</li>
+                                <li>Multiplatform</li>
+                                <li>Video background</li>
+                                <li>Support</li>
+                            </ul>
+                            <a href="#" class="buy"> <i class="icon icon-basket"></i></a>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+        </section>
+        PRICING TABLE END -->
+        <!-- TESTIMONIALS BEGIN 
+        <section id="testimonials" class="bg-color3">
+            <div class="container-fluid">
+                <h2>Why Do People Love Us</h2>
+                <div id="testimonials-slider" class="owl-carousel">
+                    <div class="item container">
+                        <div class="talk">This is a great product. It reveals an individual approach to each customer. I liked the level of the provided service.</div>
+                        <img class="photo" src="images/customer_photo.jpg" alt="customer" />
+                        <div class="name">John Doe</div>
+                        <div class="ocupation">First customer</div>
+                    </div>
+                    <div class="item container">
+                        <div class="talk">I always thought that people used to pay much for quality. But these guys changed my opinion. The quality exceeds the price many times. I recommend it to everybody.</div>
+                        <img class="photo" src="images/customer_photo.jpg" alt="customer" />
+                        <div class="name">John Doe</div>
+                        <div class="ocupation">First customer</div>
+                    </div>
+                    <div class="item container">
+                        <div class="talk">My colleague recommended them to me. I hesitated for a long time, but than I tried and understood what I had paid off for.</div>
+                        <img class="photo" src="images/customer_photo.jpg" alt="customer" />
+                        <div class="name">John Doe</div>
+                        <div class="ocupation">First customer</div>
+                    </div>
+                    <div class="item container">
+                        <div class="talk">It’s just five stars. I will certainly come back and bring my friends with me.</div>
+                        <img class="photo" src="images/customer_photo.jpg" alt="customer" />
+                        <div class="name">John Doe</div>
+                        <div class="ocupation">First customer</div>
+                    </div>
+                </div>
+            </div>
+            <div class="block-bg"></div>
+        </section>
+        TESTIMONIALS END -->
+        <!-- NEWS BEGIN 
+        <section id="news">
+            <div class="container-fluid">
+                <div class="title">
+                    <h2>App's News</h2>
+                    <p>Here you can find all interesting facts about this app:
+                        <br>the last updates, sales, latest things and the developers’ stories.</p>
+                </div>
+                <ul class="news-list">
+                    <li class="wow fadeInUp">
+                        <h3><a href="single.html">Look for the latest update in coming days.</a></h3>
+                        <div class="news-info">
+                            <div class="author"><i class="icon icon-user"></i>John Doe</div>
+                            <div class="date"><i class="icon icon-clock"></i>16.07.2014</div>
+                            <div class="comments"><i class="icon icon-bubble"></i>7 Comments</div>
+                        </div>
+                    </li>
+                    <li class="wow fadeInUp">
+                        <h3><a href="single-no-sidebar.html">The meeting of developers of cross-platform apps.</a></h3>
+                        <div class="news-info">
+                            <div class="author"><i class="icon icon-user"></i>John Doe</div>
+                            <div class="date"><i class="icon icon-clock"></i>16.07.2014</div>
+                            <div class="comments"><i class="icon icon-bubble"></i>7 Comments</div>
+                        </div>
+                    </li>
+                    <li class="wow fadeInUp">
+                        <h3><a href="single.html">The new functional sketches.</a></h3>
+                        <div class="news-info">
+                            <div class="author"><i class="icon icon-user"></i>John Doe</div>
+                            <div class="date"><i class="icon icon-clock"></i>16.07.2014</div>
+                            <div class="comments"><i class="icon icon-bubble"></i>7 Comments</div>
+                        </div>
+                    </li>
+                    <li class="wow fadeInUp">
+                        <h3><a href="single-no-sidebar.html">Resolving the issue with synchronization in old version.</a></h3>
+                        <div class="news-info">
+                            <div class="author"><i class="icon icon-user"></i>John Doe</div>
+                            <div class="date"><i class="icon icon-clock"></i>16.07.2014</div>
+                            <div class="comments"><i class="icon icon-bubble"></i>7 Comments</div>
+                        </div>
+                    </li>
+                </ul>
+                <a href="blog.html" class="round-btn wow fadeInUp">Older news</a>
+            </div>
+        </section>
+        NEWS END -->
+        <!-- SOCIAL BEGIN -->
+        <section id="social" class="bg-color2">
+            <div class="container-fluid">
+                <div class="title">
+                    <h2>Become a storyteller today!</h2>
+                    <p>Our contributors are the heart and soul of Pixtory. We'd love to have you join our amazing, close-knit community of storytellers.
+                        <br> From over 22 countries, our incredible contributors have shared their powerful stories. Now it's time for you to share yours.</p>
+                </div>
+                <form action="scripts/subscribe.php" method="post" id="subscribe_form">
+                    <div class="input-group">
+                        <input class="form-control" type="email" name="email" id="subscribe_email" placeholder="Please email contact@pixtory.in">
+                        <div class="input-group-btn">
+                            <button type="submit" id="subscribe_submit" data-loading-text="&bull;&bull;&bull;"><i class="icon icon-paper-plane"></i></button>
+                        </div>
+                    </div>
+                </form>
+            </div>
+        </section>
+        <!-- SOCIAL END -->
+        <!-- DOWNLOAD BEGIN -->
+        <section id="download" class="bg-color-main">
+            <div class="container-fluid wow fadeInDown">
+                <a href="#wrap" class="goto">
+                    <h2><i class="icon soc-icon-android"></i>Download App</h2>
+                </a>
+            </div>
+            <div class="block-bg" data-stellar-ratio="0.5"></div>
+        </section>
+        <!-- DOWNLOAD END -->
+        <!-- FOOTER BEGIN -->
+        <footer id="footer">
+            <div class="container">
+                <a href="index.html#wrap" class="logo goto"> <img src="./images/logo_small@2x.png" alt="Your Logo" height="35" width="" /> </a>
+                <ul class="soc-list wow flipInX">
+                    <li><a target="_blank " href="https://www.facebook.com/pixtoryapp/?fref=ts "><i class="icon soc-icon-facebook "></i></a></li>
+                    <li><a target="_blank " href="https://www.instagram.com/pixtoryapp/?hl=en "><i class="icon soc-icon-instagram "></i></a></li>
+                </ul>
+                <p class="copyright ">
+                    <a href="./privacy/Privacy-Policy.docx " target="_blank ">Privacy Policy</a></p>
+            </div>
+        </footer>
+        <!-- FOOTER END -->
+    </div>
+    <!-- MODALS BEGIN-->
+    <!-- subscribe modal-->
+    <div class="modal fade " id="modalMessage " tabindex="-1 " role="dialog " aria-hidden="true ">
+        <div class="modal-dialog ">
+            <div class="modal-content ">
+                <button type="button " class="close " data-dismiss="modal " aria-hidden="true ">&times;</button>
+                <h3 class="modal-title "></h3>
+            </div>
+        </div>
+    </div>
+    <!-- MODALS END-->
+    <!-- JavaScript -->
+    <script src="scripts/jquery-1.8.2.min.js "></script>
+    <script src="scripts/bootstrap.min.js "></script>
+    <script src="scripts/owl.carousel.min.js "></script>
+    <script src="scripts/jquery.validate.min.js "></script>
+    <script src="scripts/wow.min.js "></script>
+    <script src="scripts/smoothscroll.js "></script>
+    <script src="scripts/jquery.smooth-scroll.min.js "></script>
+    <script src="scripts/jquery.superslides.min.js "></script>
+    <script src="scripts/placeholders.jquery.min.js "></script>
+    <script src="scripts/jquery.magnific-popup.min.js "></script>
+    <script src="scripts/jquery.stellar.min.js "></script>
+    <script src="scripts/retina.min.js "></script>
+    <script src="scripts/custom.js "></script>
+    <!--[if lte IE 9]>
+    <script src="scripts/respond.min.js "></script>
+<![endif]-->
+</body>
+
+</html>

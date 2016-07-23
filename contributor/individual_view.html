@@ -1,0 +1,239 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+
+<title>Pixtory Web Portal</title>
+<link rel="icon" href="assets/img/favicon.ico">
+
+<meta http-equiv="content-type" content="text/html; charset=utf-8" >
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<link href="style.css" rel="stylesheet">
+
+    <link href="https://fonts.googleapis.com/css?family=Montserrat:400,700" rel="stylesheet" type="text/css">
+    <link href='https://fonts.googleapis.com/css?family=Droid+Serif:400,700,400italic,700italic' rel='stylesheet' type='text/css'>
+    <link href='https://fonts.googleapis.com/css?family=Roboto:400,500italic,500,400italic,300italic,300' rel='stylesheet' type='text/css'>
+    <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+
+</head>
+
+<body id="page-top" class="index">
+
+<!--JQuery AJAX-->
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.2/jquery.min.js"></script>
+
+<!--Facebook Java SDK-->
+  <script>
+
+    var fbId;
+    var userName_1;
+    var userId_1;
+    var picture_url;
+    var picture_description;
+    var picture_name;
+    var like_count;
+    var content_id;
+    var comment_profile_picture;
+    var comment_profile_name;
+    var comment_body;
+
+    // initialize and setup facebook js sdk
+    window.fbAsyncInit = function() {
+        FB.init({
+          appId      : '1207785742565519',
+          xfbml      : true,
+          version    : 'v2.6'
+        });
+        FB.getLoginStatus(function(response) {
+          if (response.status === 'connected') {
+            ///document.getElementById('status').innerHTML = 'We are connected.';
+            //document.getElementById('login').style.visibility = 'hidden';
+          } else if (response.status === 'not_authorized') {
+            ///document.getElementById('status').innerHTML = 'We are not logged in.'
+            window.open("login.html","_self")
+          } else {
+            ///document.getElementById('status').innerHTML = 'You are not logged into Facebook.';
+            window.open("login.html","_self")
+          }
+        FB.api('/me', 'GET', {"fields":"picture{url},email,first_name,last_name,id"}, function(response) {
+            document.getElementById('myImage').src = response.picture.data.url;
+          });
+    })
+        };
+    (function(d, s, id){
+        var js, fjs = d.getElementsByTagName(s)[0];
+        if (d.getElementById(id)) {return;}
+        js = d.createElement(s); js.id = id;
+        js.src = "//connect.facebook.net/en_US/sdk.js";
+        fjs.parentNode.insertBefore(js, fjs);
+    }(document, 'script', 'facebook-jssdk'));
+
+  var settings_fb = {
+  "async": true,
+  "crossDomain": true,
+  "url": "http://ec2-52-207-219-87.compute-1.amazonaws.com:4055/registerUser",
+  "method": "POST",
+  "headers": {
+    "content-type": "application/json",
+    "cache-control": "no-cache",
+    "postman-token": "c6e7b3e9-3ad6-fd73-6999-7b78fa9dbf6d"
+  },
+  "processData": false,
+  "data": "{\"userName\":\"" + userName_1 + "\", \"fbId\":" + fbId + "}"
+}
+
+  var settings = {
+  "async": true,
+  "crossDomain": true,
+  "url": "http://ec2-52-207-219-87.compute-1.amazonaws.com:4055/getPersonDetails",
+  "method": "POST",
+  "headers": {
+    "content-type": "application/json",
+    "cache-control": "no-cache",
+    "postman-token": "a9fd705a-1170-3d09-b4aa-2dd667a886cc"
+  },
+  "processData": false,
+  "data": "{\"userId\":" + userId_1 + ", \"personId\":" + userId_1 + "}"
+}
+
+  var settings_comment = {
+  "async": true,
+  "crossDomain": true,
+  "url": "http://ec2-52-207-219-87.compute-1.amazonaws.com:4055/getCommentDetailList",
+  "method": "POST",
+  "headers": {
+    "content-type": "application/json",
+    "cache-control": "no-cache",
+    "postman-token": "70ec122e-82d5-7a86-6d92-2271d0b3a863"
+  },
+  "processData": false,
+  "data": "{\"userId\":" + userId_1 + ", \"contentId\":" + content_id + "}"
+}
+
+  var settings = {
+  "async": true,
+  "crossDomain": true,
+  "url": "http://ec2-52-207-219-87.compute-1.amazonaws.com:4055/",
+  "method": "POST",
+  "headers": {
+    "content-type": "application/json",
+    "cache-control": "no-cache",
+    "postman-token": "b0829451-115d-0cc4-18ff-7b15a7e62ab0"
+  },
+  "processData": false,
+  "data": "{\"userId\":" + userId + ", \"contentId\":" + content_id + ", \"comment\":\"" + user_input + "\"}" ///Define user input...
+}
+
+  function GetInfo() {
+    $.ajax(settings_fb).done(function (response) {
+    userId_1 = response.userId;
+    ///document.getElementsById('person_id').innerHTML = response.userId; ///for testing purposes
+    ///document.getElementsById('person_id_2').innerHTML = userId_1; ///for testing purposes
+    });
+
+    $.ajax(settings).done(function (response) {
+      var len_1 = response.fullcount;
+      for (var i = 0; i< len_1; i++) {
+        picture_url = response.contentList[i].pictureUrl;
+        picture_description = response.contentList[i].pictureDescription;
+        picture_name = response.contentList[i].name;
+        like_count = response.contentList[i].likeCount;
+        content_id = response.contentList[i].id;
+      }
+    });
+
+    $.ajax(settings_comment).done(function (response) {
+      var len_2 = response.fullcount;
+      for (var x = 0; x< len_2; x++) {
+        comment_profile_picture = response.commentList[x].personDetails.imageUrl;
+        comment_profile_name = response.commentList[x].personDetails.name;
+        comment_body = response.commentList[x].comment;
+      }
+    })
+  }
+
+  window.addEventListener("load", GetInfo);
+
+  function NewComment() {
+    $.ajax(settings_add_comment).done(function (response) {
+
+    })
+  }
+
+  </script>
+
+
+	<div class="strip" align="center"></div>
+	<div class="header">
+		<center>
+			<ul>
+  				<li style="float:left;padding-top:1%;"><a href="home.html"><img src="assets/img/logo_grey.png" style="width:120px;height:205/6px;"></a></li>
+  				<li style="float:right;">
+  					<a>
+  						<div class="image-cropper">
+    						<img id="myImage" src="assets/img/profile.jpeg" style="height:60px;width:60px;">
+						</div>
+  					</a>
+  				</li>
+  				<li style="float:right;padding-top:2%;" class="dropdown">
+  					<a class="dropbtn"><i class="material-icons">notifications_none</i></a>
+  					<div class="dropdown-content">
+  						<a href="#notifications">Notification</a>
+  					</div>
+  				</li>
+  				<li style="float:right;padding-top:2%;" class="dropdown">
+  					<a href="feedback.html"><i class="material-icons">more_horiz</i></a>
+  				</li>
+			</ul>
+		</center>
+	</div>
+
+	<div>
+      <h1 style="margin-left:15%;font-family: 'Roboto', sans-serif;font-weight: 500;">Test Name</h1>
+    <center>
+      <hr style="margin-left:14%;margin-right:14%;">
+    </center>
+  </div>
+
+  <div style="margin-left:7%;margin-top:15%;float:left;">
+    <a href="#previous">
+      <i class="material-icons" style="font-size:128px;color:black;">keyboard_arrow_left</i>
+    </a>
+  </div>
+
+  <div style="margin-right:7%;margin-top:15%;float:right;">
+    <a href="#next">
+      <i class="material-icons" style="font-size:128px;color:black;">keyboard_arrow_right</i>
+    </a>
+  </div>
+
+  <div style="float:left;margin-top:4%;margin-left:3%;">
+    <img src="assets/img/pic_1.jpg" style="width:250px;height:438px;">
+  </div>
+
+  
+    <div style="word-wrap:break-word;overflow:scroll;float:right;height:200px;width:40%;margin-top:3%;margin-right:0%;">
+        <p>
+        <b>Ombré wiped sky</b><br>
+        <b>Foggy silhouette dressed highways</b><br>
+        <b>Sand woven no star hotels</b><br>
+        <b>And raw unsure souls. //</b></p>
+        <p>Why raw unsure souls? For the reason that this lady right here had the most unfiltered expression when she realised I was clicking her, and she said she wasn't sure how good she looks.</p>
+        <p>I think I made her look breathtakingly good.</p>
+    </div>
+    <div style="float:left;width:10%;font-size:16px;color:#31AEF5;margin-left:3.5%;">
+        <i class="material-icons">favorite</i>123
+        <p style="font-family:'Roboto', sans-serif;color:#95989A">Comments:</p>
+    <hr style="width:400   %;">
+    </div>
+        <div style="float:left;width:10%;font-size:16px;color:#31AEF5;">
+        <i class="material-icons">favorite</i>123
+    </div>
+        <div style="float:left;width:10%;font-size:16px;color:#31AEF5;">
+        <i class="material-icons">favorite</i>123
+    </div>
+
+
+</body>
+</html>

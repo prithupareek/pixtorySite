@@ -1,0 +1,615 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <title>Pixtory Web Portal</title>
+    <link rel="icon" href="assets/img/favicon.ico">
+    <meta http-equiv="content-type" content="text/html; charset=utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link href="style.css" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css?family=Montserrat:400,700" rel="stylesheet" type="text/css">
+    <link href='https://fonts.googleapis.com/css?family=Droid+Serif:400,700,400italic,700italic' rel='stylesheet' type='text/css'>
+    <link href='https://fonts.googleapis.com/css?family=Roboto:400,500italic,500,400italic,300italic,300' rel='stylesheet' type='text/css'>
+    <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+    <link rel="stylesheet" type="text/css" href="furniture.css">
+    <style type="text/css">
+    .notification {
+        padding: 1%;
+        background-color: #d9f0fd;
+        font-family: "Roboto", sans-serif;
+        font-color: #292929;
+        cursor: pointer;
+    }
+    
+    button {
+        outline: none
+    }
+    
+    input {
+        outline: none
+    }
+    
+    .carouselbox {
+        font-family: "Droid Sans", serif;
+        font-size: 14px;
+        width: 90%;
+        position: relative;
+        margin: 1em;
+        overflow: hidden;
+    }
+    
+    .content {
+        margin: 0;
+        padding: 0;
+    }
+    
+    .content li {
+        font-size: 14px;
+        margin: 0;
+        padding: 0;
+        width: 100%;
+        list-style: none;
+        text-align: center;
+        z-index: 2;
+    }
+    
+    .active {
+        height: 510px;
+    }
+    
+    .active li {
+        position: absolute;
+        right: 100%;
+    }
+    
+    .active li.current {
+        left: 0%;
+    }
+    
+    .buttons {
+        display: none;
+    }
+    
+    .active .buttons {
+        display: block;
+        text-align: center;
+        z-index: 10;
+        position: relative;
+    }
+    
+    .carouselbox button {
+        border: none;
+        visibility: hidden;
+    }
+    
+    .active button {
+        visibility: visible;
+    }
+    
+    .offscreen {
+        position: absolute;
+        left: -2000px;
+    }
+    
+    #notification_li {
+        position: relative
+    }
+    
+    #notificationContainer {
+        background-color: #fff;
+        border: 1px solid rgba(100, 100, 100, .4);
+        -webkit-box-shadow: 0 3px 8px rgba(0, 0, 0, .25);
+        overflow: visible;
+        position: absolute;
+        top: 70px;
+        margin-left: -170px;
+        width: 400px;
+        z-index: 11;
+        display: none;
+    }
+    
+    #notificationContainer:before {
+        content: '';
+        display: block;
+        position: absolute;
+        width: 0;
+        height: 0;
+        color: transparent;
+        border: 10px solid black;
+        border-color: transparent transparent white;
+        margin-top: -20px;
+        margin-left: 188px;
+    }
+    
+    #notificationTitle {
+        font-weight: bold;
+        padding: 8px;
+        font-size: 13px;
+        background-color: #ffffff;
+        position: fixed;
+        z-index: 1000;
+        width: 384px;
+        border-bottom: 1px solid #dddddd;
+    }
+    
+    #notificationsBody {
+        padding: 33px 0px 0px 0px !important;
+        min-height: 300px;
+    }
+    
+    #notification_count {
+        padding: 3px 7px 3px 7px;
+        background: #31AEF5;
+        color: #ffffff;
+        font-weight: bold;
+        margin-left: 0px;
+        border-radius: 100px;
+        -moz-border-radius: 100px;
+        -webkit-border-radius: 100px;
+        position: absolute;
+        margin-top: 0px;
+        font-size: 11px;
+    }
+    
+    #comments {
+        padding-bottom: 20px;
+    }
+    </style>
+</head>
+
+<body id="page-top" class="index">
+    <!--JQuery AJAX-->
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.2/jquery.min.js"></script>
+    <script>
+    var picture_url;
+    var picture_description;
+    var picture_name;
+    var like_count;
+    var content_id;
+    var pixtory;
+    var i;
+    var x;
+    var len_1;
+    var len_2;
+    var picture_description;
+    var tr;
+    var parsed_json1;
+    var parsed_json2;
+    var parsed_json3;
+    var parsed_json4;
+    var fbId;
+    var userName_1;
+    var profile_picture;
+    var items;
+    var current;
+    var success;
+
+    // initialize and setup facebook js sdk
+    $(document).ready(function() {
+        $(".main").show();
+        $(".carouselbox").hide();
+        $(".blur").hide();
+        $(".expanded_story").hide();
+        $(".expanded_story_close").hide();
+        $("#notification_count").hide();
+    });
+
+    window.fbAsyncInit = function() {
+        FB.init({
+            appId: '1207785742565519',
+            xfbml: true,
+            version: 'v2.6'
+        });
+        FB.getLoginStatus(function(response) {
+            if (response.status === 'connected') {
+                ///document.getElementById('status').innerHTML = 'We are connected.';
+                //document.getElementById('login').style.visibility = 'hidden';
+            } else if (response.status === 'not_authorized') {
+                ///document.getElementById('status').innerHTML = 'We are not logged in.'
+                window.open("login.html", "_self")
+            } else {
+                ///document.getElementById('status').innerHTML = 'You are not logged into Facebook.';
+                window.open("login.html", "_self")
+            }
+            FB.api('/me', 'GET', {
+                "fields": "picture{url},email,name,id"
+            }, function(response) {
+                document.getElementById('name').innerHTML = "Welcome, " + response.name;
+                fbId = response.id;
+                userName_1 = response.name;
+                ///console.log(fbId);
+                ///console.log(userName_1);
+                GetPersonInfo();
+
+            });
+
+        })
+    };
+    (function(d, s, id) {
+        var js, fjs = d.getElementsByTagName(s)[0];
+        if (d.getElementById(id)) {
+            return;
+        }
+        js = d.createElement(s);
+        js.id = id;
+        js.src = "//connect.facebook.net/en_US/sdk.js";
+        fjs.parentNode.insertBefore(js, fjs);
+    }(document, 'script', 'facebook-jssdk'));
+
+    function GetPersonInfo() {
+
+        ///console.log(fbId);
+        ///console.log(userName_1);
+        var JSON_2 = {
+            "fbId": fbId,
+        };
+        var data_2 = JSON.stringify(JSON_2);
+        ///console.log(data_2);
+
+        var xhttp_2 = new XMLHttpRequest();
+
+        xhttp_2.open("POST", "http://pixtory-prod-elb-1118450371.ap-south-1.elb.amazonaws.com:80/registerUser", true);
+        xhttp_2.setRequestHeader("content-type", "application/json");
+        xhttp_2.send(data_2);
+
+        xhttp_2.addEventListener("readystatechange", function() {
+            if (xhttp_2.readyState === 4) {
+
+                ///console.log(xhttp_2.responseText);
+                parsed_json2 = JSON.parse(xhttp_2.responseText);
+                userId_1 = parsed_json2.userId;
+                GetContent();
+
+            };
+        });
+    };
+
+    function OpenCarousel(page_number) {
+        current.classList.remove('current');
+        current = items[page_number];
+        current.classList.add('current');
+        $('.carouselbox.active').show();
+        $('.main').hide();
+    }
+
+    function AddComment(content_id, comment) {
+
+        var JSON_4 = {
+            "userId": userId_1,
+            "contentId": content_id,
+            "comment": comment
+        }
+        var data_4 = JSON.stringify(JSON_4);
+
+        var xhttp_4 = new XMLHttpRequest();
+
+        xhttp_4.open("POST", "http://pixtory-prod-elb-1118450371.ap-south-1.elb.amazonaws.com:80/addComment", true);
+        xhttp_4.setRequestHeader("content-type", "application/json");
+        xhttp_4.send(data_4);
+
+        xhttp_4.addEventListener("readystatechange", function() {
+            if (xhttp_4.readyState === 4) {
+                ///console.log(xhttp_4.responseText);
+                parsed_json4 = JSON.parse(xhttp_4.responseText);
+                success = parsed_json4.success;
+                ///console.log("type:" + typeof(success));
+                ///console.log("response:" + success);
+                if (success == true) {
+                    alert("Your comment has been posted!");
+                } else if (success == "false") { //have prasana fix the backend
+                    alert("Your comment has failed. Please try again!");
+                }
+
+            };
+        });
+    }
+
+    function CloseCarousel() {
+        $('.carouselbox.active').hide();
+        $('.main').show();
+    }
+
+
+    function GetContent() {
+        ///console.log(userId_1);
+
+        var JSON_1 = {
+            "userId": userId_1,
+            "personId": userId_1
+        };
+        var data_1 = JSON.stringify(JSON_1);
+
+        var xhttp_1 = new XMLHttpRequest();
+
+        xhttp_1.addEventListener("readystatechange", function() {
+            if (xhttp_1.readyState === 4 && xhttp_1.status == 200) {
+                ///console.log(xhttp_1.responseText);
+                parsed_json1 = JSON.parse(xhttp_1.responseText);
+                document.getElementById('myImage').src = parsed_json1.userDetails.imageUrl;
+                pixtory = document.getElementsByClassName("pixtory")[0];
+                len_1 = parsed_json1.fullCount;
+
+                for (i = 0; i < len_1; i++) {
+                    ///console.log(i);
+                    var img = document.createElement("img");
+                    img.src = parsed_json1.contentList[i].pictureUrl;
+                    img.id = i;
+                    img.style = "cursor:pointer;"
+                        //img.onclick = "javascript:OpenCarousel("+i+")"
+                    img.addEventListener("click", (function(i) {
+                        return function() {
+                            OpenCarousel(i);
+                        }
+                    }(i)));
+                    img.class = "pictures";
+                    pixtory.appendChild(img);
+                    document.getElementById(i).style.height = "310px";
+                    document.getElementById(i).style.padding = "25px";
+                    picture_name = parsed_json1.contentList[i].name;
+                    like_count = parsed_json1.contentList[i].likeCount;
+                    content_id = parsed_json1.contentList[i].id;
+                    picture_description = parsed_json1.contentList[i].pictureDescription;
+                    picture_url = parsed_json1.contentList[i].pictureUrl;
+                    if (like_count < JSON.parse(localStorage.getItem(content_id + "_likes"))) {
+                        $("#notification_count").show()
+                            ///console.log("yay");
+                        var new_likes = JSON.parse(localStorage.getItem(content_id + "_likes")) - like_count
+                            ///console.log(new_likes);
+                        var notification_like_div = document.createElement("div");
+                        notification_like_div.className = "notification";
+                        notification_like_div.id = i + "_likes";
+                        notification_like_div.addEventListener("click", (function(i) {
+                            return function() {
+                                OpenCarousel(i);
+                                $("#notificationContainer").hide();
+                                $("#" + i + "_likes").css("background-color", "#ffffff"); // figure out background color change on click to show used notifications.
+                            }
+                        }(i)));
+                        notification_like_div.innerHTML = '<img style="float:left;height:50px;" src="' + picture_url + '"><p>' + new_likes + ' people have liked your Pixtory!'
+                        notificationsBody.appendChild(notification_like_div);
+                    } else {
+                        ///console.log("noooo");
+                    }
+                    localStorage.setItem(content_id + "_likes", like_count);
+                    ///console.log(JSON.parse(localStorage.getItem(content_id + "_likes")) + "likes");
+                    ///console.log(i);
+                    ///console.log(document.getElementById(i).id);
+                    content = document.getElementsByClassName('content')[0];
+                    var li = document.createElement("li");
+                    li.id = i;
+                    li.innerHTML = '<div class="header_carousel"><center><table><tr><td><i class="material-icons close" style="cursor:pointer;color:black;position:absolute;left:10%;">close</i><div style="float:left;margin-left:13%;"></td><td style="font-family: Roboto, sans-serif;font-weight: 500;font-size:2em;">' + picture_name + '</td><td><div style="position:absolute;right:10%;top:3%;font-family: Roboto, sans-serif;"><i class="material-icons" style="margin-top:0%;margin-left:0%;color:#31AEF5;">favorite</i>' + like_count + '</div></td></tr></table><hr style="margin-left:10%;margin-right:10%;margin-bottom:2%;"></center></div><img src="' + picture_url + '" style="margin-left:10%;width:250px;height:438px;margin-bottom2%;"></div><div style="font-size:16px;float:right;word-wrap:break-word;overflow:hidden;height:100px;width:50%;margin-top:0%;margin-right:12%;overflow-x:hidden;scrollbar:hidden;text-align:left;">' + picture_description + '</div><div id="click_' + i + '" class="showmore" style="cursor:pointer;position: absolute;top: 32%;right: 12%;font-family: Roboto, sans-serif;padding-top:10px;padding-bottom:10px;color:#31AEF5">Show More</div><div><input id="comment_field_' + i + '" type="text" style="font-size:16px;width:40%;position:absolute;top:93.5%;left:38%;"></input><input type="submit" id="' + content_id + '_' + i + '" value="Comment" style="cursor:pointer;border:none;background-color:#31AEF5;position:absolute;top:93.5%;right:12%;color:white;font-size:16px;"></input></div><div style="overflow:scroll;width:50%;height:270px;overflow-x:hidden;position:absolute;top:40%;left:38%;" id="comments_' + i + '"></div>'
+
+                    content.appendChild(li); ///figure out this.
+                    GetComments(i, picture_url);
+                    $(".material-icons.close").on("click", function() {
+                        CloseCarousel();
+                    });
+                    document.getElementById(content_id + '_' + i).addEventListener("click", function() {
+                        id = $(this).attr("id")
+                        var page = id.split("_")[1]
+                        var content_comment = id.split("_")[0]
+                            ///console.log(page);
+                            ///console.log(content_comment);
+                        var input = $("#comment_field_" + page);
+                        ///console.log(input);
+                        var comment = input.val();
+                        ///console.log(comment);
+                        AddComment(content_comment, comment);
+                    });
+                    document.getElementById('click_' + i).addEventListener("click", function() {
+                        $(".blur").show();
+                        $(".expanded_story").show();
+                        $(".expanded_story_close").show();
+                        id = $(this).attr("id")
+                        var new_i = id.split("_")[1]
+                        $('.expanded_story').html(parsed_json1.contentList[new_i].pictureDescription);
+                    });
+
+                    $(document).click(function(event) {
+                        if (!$(event.target).hasClass('showmore')) {
+                            $(".blur").hide();
+                            $(".expanded_story").hide();
+                            $(".expanded_story_close").hide();
+                        }
+                    });
+                }
+                carousel();
+            };
+        });
+        xhttp_1.open("POST", "http://pixtory-prod-elb-1118450371.ap-south-1.elb.amazonaws.com:80/getPersonDetails", true);
+        xhttp_1.setRequestHeader("content-type", "application/json");
+        xhttp_1.send(data_1);
+    };
+
+    function GetComments(i, picture_url) {
+        var JSON_3 = {
+            "userId": userId_1,
+            "contentId": content_id
+        };
+        var data_3 = JSON.stringify(JSON_3);
+        var defaultUrl = "assets/img/profile.jpeg"
+
+        var xhttp_3 = new XMLHttpRequest();
+
+        xhttp_3.addEventListener("readystatechange", function() {
+            if (xhttp_3.readyState === 4 && xhttp_3.status == 200) {
+                ///console.log(xhttp_3.responseText);
+                parsed_json3 = JSON.parse(xhttp_3.responseText);
+                len_2 = parsed_json3.commentList.length;
+                localStorage.setItem(content_id + '_comments', len_2);
+                ///console.log(JSON.parse(localStorage.getItem(content_id + '_comments')) + "comments")
+                if (len_2 < JSON.parse(localStorage.getItem(content_id + "comments"))) {
+                    $("#notification_count").show()
+                        ///console.log("yay");
+                    var new_comments = JSON.parse(localStorage.getItem(content_id + "comments")) - len_2
+                        ///console.log(new_comments);
+                    var notification_comment_div = document.createElement("div");
+                    notification_comment_div.className = "notification";
+                    notification_comment_div.id = i + "_comments";
+                    notification_comment_div.addEventListener("click", (function(i) {
+                        return function() {
+                            OpenCarousel(i);
+                            $("#notificationContainer").hide();
+                            $("#" + i + "_comments").css("background-color", "#ffffff"); //figure out background color change on click to show used notifications.
+                        }
+                    }(i)));
+                    notification_comment_div.innerHTML = '<img style="float:left;height:50px;" src="' + picture_url + '"><p>' + new_comments + ' people have commented on your Pixtory!'
+                    notificationsBody.appendChild(notification_comment_div);
+                } else {
+                    ///console.log("noooo");
+                }
+                ///console.log(len_2);
+
+
+                if (len_2 > 0) {
+                    for (x = 0; x < len_2; x++) {
+                        var div = document.createElement("div");
+                        div.id = "comments";
+                        profile_picture = parsed_json3.commentList[x].personDetails.imageUrl || defaultUrl;
+                        comment_content = parsed_json3.commentList[x].comment;
+                        div.innerHTML = '<img style="height:40px;width:40px;float:left;" src="' + profile_picture + '" class="image-cropper"><p style="font-size:16px;text-align:left;padding-left:60px;">' + comment_content + '</p>'
+                        document.getElementById('comments_' + i + '').appendChild(div);
+                        ///console.log(div);
+                    };
+                } else {
+                    var no_comments = document.createElement("div");
+                    no_comments.style = "padding-top:10%;font-family:Roboto,sans-serif;"
+                    no_comments.innerHTML = "No comments have been posted for this Pixtory.";
+                    document.getElementById('comments_' + i + '').appendChild(no_comments);
+                }
+            }
+        });
+
+        xhttp_3.open("POST", "http://pixtory-prod-elb-1118450371.ap-south-1.elb.amazonaws.com:80/getCommentDetailList", true);
+        xhttp_3.setRequestHeader("content-type", "application/json");
+        xhttp_3.send(data_3);
+
+    };
+
+    /// Carousel Script -------------------------------------------------------------
+    function carousel() {
+        // Read necessary elements from the DOM once
+        var box = document.querySelector('.carouselbox');
+        var next = box.querySelector('.next');
+        var prev = box.querySelector('.prev');
+        // Define the global counter, the items and the 
+        // current item 
+        var counter = 0;
+        items = box.querySelectorAll('.content li');
+        var amount = items.length;
+        current = items[0];
+        box.classList.add('active');
+        // navigate through the carousel
+        function navigate(direction) {
+            // hide the old current list item 
+            current.classList.remove('current');
+            // calculate th new position
+            counter = counter + direction;
+            // if the previous one was chosen
+            // and the counter is less than 0 
+            // make the counter the last element,
+            // thus looping the carousel
+            if (direction === -1 &&
+                counter < 0) {
+                counter = amount - 1;
+            }
+            // if the next button was clicked and there 
+            // is no items element, set the counter 
+            // to 0
+            if (direction === 1 &&
+                !items[counter]) {
+                counter = 0;
+            }
+            // set new current element 
+            // and add CSS class
+            current = items[counter];
+            current.classList.add('current');
+        }
+        // add event handlers to buttons
+        next.addEventListener('click', function(ev) {
+            navigate(1);
+        });
+        prev.addEventListener('click', function(ev) {
+            navigate(-1);
+        });
+        // show the first element 
+        // (when direction is 0 counter doesn't change)
+        navigate(0);
+    };
+    </script>
+    <script type="text/javascript">
+    $(document).ready(function() {
+        $("#notificationLink").click(function() {
+            $("#notificationContainer").fadeToggle(300);
+            $("#notification_count").fadeOut("slow");
+            return false;
+        });
+
+        //Document Click hiding the popup 
+        $(document).click(function() {
+            $("#notificationContainer").hide();
+        });
+
+        //Popup on click
+        $("#notificationContainer").click(function() {
+            return false;
+        });
+
+    });
+    </script>
+    <div class="strip" align="center"></div>
+    <div class="header">
+        <center>
+            <ul>
+                <li style="float:left;padding-top:1%;">
+                    <img src="assets/img/logo.png" style="width:60px;">
+                </li>
+                <li style="float:right;">
+                    <a>
+                        <div class="image-cropper">
+                            <img id="myImage" src="assets/img/profile.jpeg" style="height:60px;width:60px;">
+                        </div>
+                    </a>
+                </li>
+                <li style="float:right;padding-top:2%;" id="notificationLink">
+                    <span id="notification_count">!</span>
+                    <a href="#" id="notificationLink"><i class="material-icons" style="padding-top:none;">notifications_none</i></a>
+                    <div id="notificationContainer">
+                        <div id="notificationTitle">Notifications</div>
+                        <div id="notificationsBody" class="notifications"></div>
+                    </div>
+                </li>
+                <li style="float:right;padding-top:2%;">
+                    <p id="name"></p>
+                </li>
+            </ul>
+        </center>
+    </div>
+    <div class="main">
+        <h1 style="margin-left:15%;font-family: 'Roboto', sans-serif;font-weight: 500;">Your Pixtories</h1>
+        <center>
+            <hr style="margin-left:14%;margin-right:14%;">
+        </center>
+        <div class="pixtory" style="width:72%;margin-left:14%;"></div>
+    </div>
+    <center>
+        <div class="carouselbox">
+            <div class="buttons">
+                <button class="prev" style="cursor:pointer;border:none;background-color:transparent;float:left;margin-top:15%;"><i class="material-icons" style="font-size:128px;color:black;">keyboard_arrow_left</i><span class="offscreen">Previous</span>
+                </button>
+                <button class="next" style="cursor:pointer;border:none;background-color:transparent;float:right;margin-top:15%;">
+                    <span class="offscreen">Next</span><i class="material-icons" style="font-size:128px;color:black;">keyboard_arrow_right</i>
+                </button>
+            </div>
+            <ol class="content">
+            </ol>
+        </div>
+    </center>
+    <div class="blur" style="background-color: rgba(0,0,0, 0.7);z-index: 20;position: absolute;left: 0;right: 0;top: 0;bottom: 0;"></div>
+    <div class="expanded_story" style="font-family: 'Droid Serif', serif;overflow:scroll;padding:2%;background-color:white;z-index:22;position:absolute;left:20%;right:20%;top:20%;bottom:20%;"></div>
+    <div class="expanded_story_close" style="display: block;position: absolute;top: 20%;left: 20%;z-index: 24;">
+        <i class="material-icons" style="cursor:pointer;color:grey;position:absolute;left:10%;">close</i>
+    </div>
+</body>
+
+</html>
